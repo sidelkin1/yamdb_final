@@ -1,9 +1,11 @@
 import datetime
 from pathlib import Path
 
-import pandas as pd
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
 from django.core.management.base import BaseCommand, CommandError
+
+import pandas as pd
 from sqlalchemy import create_engine
 
 
@@ -69,7 +71,7 @@ class Command(BaseCommand):
 
                     if table_name == 'users_user':
                         df = df.assign(
-                            password='12345',
+                            password=make_password('12345'),
                             last_login=pd.NaT,
                             is_superuser=False,
                             is_staff=False,
